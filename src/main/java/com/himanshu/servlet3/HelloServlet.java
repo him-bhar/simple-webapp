@@ -9,19 +9,15 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/hello", "/simple"})
 public class HelloServlet extends HttpServlet {
+  private HelloRequestProcessor helloRequestProcessor;
+
+  public HelloServlet() {
+    super();
+    this.helloRequestProcessor = new HelloRequestProcessor();
+  }
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String firstName = req.getParameter("fName");
-    String lastName = req.getParameter("lName");
-    if (firstName == null || lastName == null) {
-      resp.getWriter().print("<html><body>");
-      resp.getWriter().print("<p>Incomplete error string should be like: /hello?fName=John&lName=Doe</p>");
-      resp.getWriter().print("</body></html>");
-      resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-      return;
-    }
-    resp.getWriter().print("Welcome "+firstName+" "+lastName);
-    resp.setStatus(HttpServletResponse.SC_OK);
-    return;
+    this.helloRequestProcessor.process(req, resp);
   }
 }

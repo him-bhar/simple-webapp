@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class ServletIntegrationTests {
   private static String BASE_URI = "http://localhost:8080/web";
@@ -42,6 +41,27 @@ public class ServletIntegrationTests {
     HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
     Assertions.assertAll(
           () -> Assert.assertTrue(HttpURLConnection.HTTP_BAD_REQUEST == urlConnection.getResponseCode())
+    );
+  }
+
+  @Test
+  public void testHelloAsyncServletGet() throws IOException {
+    String testUri = BASE_URI.concat("/async/hello").concat(URI_PARAMS);
+    URL url = new URL(testUri);
+    HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+
+    StringBuilder input = new StringBuilder();
+    try(InputStreamReader inputStreamReader = new InputStreamReader(urlConnection.getInputStream());
+        BufferedReader in = new BufferedReader(inputStreamReader)) {
+      String inputLine;
+      while ((inputLine = in.readLine()) != null) {
+        System.out.println("inputLine = "+inputLine);
+        input.append(inputLine);
+      }
+    }
+    Assertions.assertAll(
+          () -> Assert.assertTrue(HttpURLConnection.HTTP_OK == urlConnection.getResponseCode()),
+          () -> Assert.assertTrue(input.toString().equals("Welcome John Doe"))
     );
   }
 
