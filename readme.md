@@ -7,9 +7,9 @@ Table of Contents
       1. [In memory tomcat for integration tests for war file](#In-memory-tomcat-for-integration-tests-for-war-file)
    1. [Angular JS Integration](#Angular-JS-Integration)
       1. [Sample angular JS integration](#Sample-angular-JS-integration)
-   1. [Swagger API Documentation](#Swagger API Documentation)
-      1. [Where is the swagger json?](#Where is the swagger json?)
-      1. [CORS Issue?](#CORS Issue?)
+   1. [Swagger API Documentation](#Swagger-API-Documentation)
+      1. [Where is the swagger json?](#Where-is-the-swagger-json?)
+      1. [CORS Issue?](#CORS-Issue?)
       
 # Servlet-3 based simple web-application
 ## Features available
